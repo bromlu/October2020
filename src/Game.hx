@@ -1,3 +1,6 @@
+import h3d.Vector;
+import en.Enums.ButtonType;
+import en.Button;
 import dn.Process;
 import hxd.Key;
 
@@ -10,6 +13,13 @@ class Game extends Process {
 	public var scroller : h2d.Layers;
 	public var level : Level;
 	public var hud : ui.Hud;
+
+	var QButton: Button;
+	var WButton: Button;
+	var EButton: Button;
+	var AButton: Button;
+	var SButton: Button;
+	var DButton: Button;
 
 	public function new() {
 		super(Main.ME);
@@ -27,6 +37,13 @@ class Game extends Process {
 		level = new Level();
 		fx = new Fx();
 		hud = new ui.Hud();
+
+		QButton = new Button(12,20, ButtonType.Q);
+		WButton = new Button(16,20, ButtonType.W);
+		EButton = new Button(20,20, ButtonType.E);
+		AButton = new Button(12,24, ButtonType.A);
+		SButton = new Button(16,24, ButtonType.S);
+		DButton = new Button(20,24, ButtonType.D);
 
 		Process.resizeAll();
 		trace(Lang.t._("Game is ready."));

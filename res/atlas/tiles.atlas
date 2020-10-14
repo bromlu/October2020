@@ -1,90 +1,90 @@
 
 tiles.png
-size: 64,128
+size: 256,32
 format: RGBA8888
-filter: Linear,Linear
+filter: Nearest,Nearest
 repeat: none
-empty
+ButtonADown
   rotate: false
-  xy: 62, 18
-  size: 1, 1
-  orig: 1, 1
-  offset: 0, 0
-  index: -1
-fxCircle0
-  rotate: false
-  xy: 46, 1
+  xy: 128, 2
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-fxDot0
+ButtonAUp
   rotate: false
-  xy: 53, 35
-  size: 3, 3
-  orig: 3, 3
+  xy: 74, 2
+  size: 16, 16
+  orig: 16, 16
   offset: 0, 0
   index: -1
-fxImpact0
+ButtonDDown
   rotate: false
-  xy: 46, 18
-  size: 15, 9
-  orig: 15, 9
+  xy: 146, 2
+  size: 16, 16
+  orig: 16, 16
   offset: 0, 0
   index: -1
-fxLine0
+ButtonDUp
   rotate: false
-  xy: 1, 58
-  size: 33, 3
-  orig: 33, 3
+  xy: 92, 2
+  size: 16, 16
+  orig: 16, 16
   offset: 0, 0
   index: -1
-fxLineDir0
+ButtonEDown
   rotate: false
-  xy: 1, 62
-  size: 33, 3
-  orig: 33, 3
+  xy: 164, 2
+  size: 16, 16
+  orig: 16, 16
   offset: 0, 0
   index: -1
-fxSmallCircle0
+ButtonEUp
   rotate: false
-  xy: 55, 28
-  size: 6, 6
-  orig: 6, 6
+  xy: 110, 2
+  size: 16, 16
+  orig: 16, 16
   offset: 0, 0
   index: -1
-fxSmoke0
+ButtonQDown
   rotate: false
-  xy: 1, 1
-  size: 44, 44
-  orig: 44, 44
+  xy: 20, 2
+  size: 16, 16
+  orig: 16, 16
   offset: 0, 0
   index: -1
-fxTail0
+ButtonQUp
   rotate: false
-  xy: 1, 46
-  size: 33, 11
-  orig: 33, 11
+  xy: 182, 2
+  size: 16, 16
+  orig: 16, 16
   offset: 0, 0
   index: -1
-pixel
+ButtonSDown
   rotate: false
-  xy: 62, 20
-  size: 1, 1
-  orig: 1, 1
+  xy: 38, 2
+  size: 16, 16
+  orig: 16, 16
   offset: 0, 0
   index: -1
-uiBar
+ButtonSUp
   rotate: false
-  xy: 46, 34
-  size: 6, 3
-  orig: 6, 3
+  xy: 200, 2
+  size: 16, 16
+  orig: 16, 16
   offset: 0, 0
   index: -1
-uiBarBg
+ButtonWDown
   rotate: false
-  xy: 46, 28
-  size: 8, 5
-  orig: 8, 5
+  xy: 56, 2
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+ButtonWUp
+  rotate: false
+  xy: 2, 2
+  size: 16, 16
+  orig: 16, 16
   offset: 0, 0
   index: -1

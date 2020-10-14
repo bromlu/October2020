@@ -18,13 +18,6 @@ class Level extends dn.Process {
 
 	public function render() {
 		// Debug level render
-		root.removeChildren();
-		for(cx in 0...wid)
-		for(cy in 0...hei) {
-			var g = new h2d.Graphics(root);
-			g.beginFill(Color.randomColor(rnd(0,1), 0.5, 0.4), 1);
-			g.drawRect(cx*Const.GRID, cy*Const.GRID, Const.GRID, Const.GRID);
-		}
 	}
 
 	override function postUpdate() {
