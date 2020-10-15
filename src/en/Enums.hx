@@ -1,6 +1,6 @@
 package en;
 
-enum ButtonType {
+enum KeyToBind {
     Q;
     W;
     E;

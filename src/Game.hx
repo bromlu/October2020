@@ -1,6 +1,9 @@
+import en.Enums.KeyToBind;
+import hxd.Timer;
+import en.Pattern;
+import en.Patterns;
 import h3d.Vector;
-import en.Enums.ButtonType;
-import en.Button;
+import en.Note;
 import dn.Process;
 import hxd.Key;
 
@@ -14,12 +17,7 @@ class Game extends Process {
 	public var level : Level;
 	public var hud : ui.Hud;
 
-	var QButton: Button;
-	var WButton: Button;
-	var EButton: Button;
-	var AButton: Button;
-	var SButton: Button;
-	var DButton: Button;
+	public var allowInput : Bool;
 
 	public function new() {
 		super(Main.ME);
@@ -38,12 +36,12 @@ class Game extends Process {
 		fx = new Fx();
 		hud = new ui.Hud();
 
-		QButton = new Button(12,20, ButtonType.Q);
-		WButton = new Button(16,20, ButtonType.W);
-		EButton = new Button(20,20, ButtonType.E);
-		AButton = new Button(12,24, ButtonType.A);
-		SButton = new Button(16,24, ButtonType.S);
-		DButton = new Button(20,24, ButtonType.D);
+		new Note(12,20, KeyToBind.Q);
+		new Note(16,20, KeyToBind.W);
+		new Note(20,20, KeyToBind.E);
+		new Note(12,24, KeyToBind.A);
+		new Note(16,24, KeyToBind.S);
+		new Note(20,24, KeyToBind.D);
 
 		Process.resizeAll();
 		trace(Lang.t._("Game is ready."));
@@ -95,10 +93,37 @@ class Game extends Process {
 		for(e in Entity.ALL) if( !e.destroyed ) e.fixedUpdate();
 	}
 
+	var isPatternPlaying = false;
+	var currentLevel = 1;
+	var currentNote = 0;
+	var currentNotePlayStart = 0.0;
+	var currentPattern: Array<Pattern>;
+
 	override function update() {
 		super.update();
 
 		for(e in Entity.ALL) if( !e.destroyed ) e.update();
+
+		if (isPatternPlaying == true) {
+			if (framesToSec(ftime) - currentNotePlayStart >= currentPattern[currentNote].noteLength) {
+				currentPattern[currentNote].note.setButtonUp();
+				currentNote++;
+				if (currentNote >= currentPattern.length) {
+					isPatternPlaying = false;
+					currentLevel++;
+					currentNote = 0;
+				}
+			} else {
+				currentPattern[currentNote].note.setButtonDown();
+			}			
+		} else {
+			currentPattern = Patterns.GeneratePattern(1 + currentLevel % 10, 1 + M.round(currentLevel/10));
+			trace(currentLevel);
+			trace(1 + currentLevel % 10);
+			trace(1 + M.round(currentLevel/10));
+			currentNotePlayStart = framesToSec(ftime);
+			isPatternPlaying = true;
+		}
 
 		if( !ui.Console.ME.isActive() && !ui.Modal.hasAny() ) {
 			#if hl
