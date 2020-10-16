@@ -3,11 +3,12 @@ package en;
 class Note extends Entity {
 	public static var ALL : Array<Note> = [];
 	public var isUp : Bool;
-	public var isDown(get,never) : Bool; inline function get_isDown() return !isUp;
+	public var isDown(get,never) : Bool; inline function get_isDown() return !isUp && (game.framesToMs(game.ftime) - timePressed) > Const.BUTTON_DELAY_MS;
 	public var keyToBind: KeyToBind;
 
 	var ca : dn.heaps.Controller.ControllerAccess;
 	var keyIndex: Int;
+	var timePressed: Float;
 
 	public function new(x,y, keyToBind: KeyToBind) {
 		super(x,y);
@@ -55,6 +56,7 @@ class Note extends Entity {
 	public function setButtonDown() {
 		if (!isUp) return;
 
+		timePressed = game.framesToMs(game.ftime);
 		isUp = false;
 		spr.set("Button" + keyToBind + "Down");
 		spr.colorize(0xcccccc);
