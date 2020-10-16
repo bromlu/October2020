@@ -36,6 +36,7 @@ class PatternPlayer extends Process {
                 note.setButtonUp();
             }
             currentPatternIndex++;
+            timer = framesToSec(ftime);
             if (currentPatternIndex >= pattern.length) {
                 _isPlaying = false;
             }
