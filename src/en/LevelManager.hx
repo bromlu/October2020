@@ -7,7 +7,8 @@ class LevelManager {
     public var currentPattern: Array<Pattern>;
 
     public function new() {
-        currentLevel = -1;
+        currentLevel = -2;
+        nextLevel();
     }
 
     public function nextLevel() {

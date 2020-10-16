@@ -26,6 +26,7 @@ class Game extends Process {
 	public var levelManager : LevelManager;
 
 	private var patternPlayer : PatternPlayer;
+	private var score : Score;
 
 	public function new() {
 		super(Main.ME);
@@ -50,7 +51,8 @@ class Game extends Process {
 		new Note(12,24, KeyToBind.A);
 		new Note(16,24, KeyToBind.S);
 		new Note(20,24, KeyToBind.D);
-		new Score(1,1);
+		
+		score = new Score(1,1);
 
 		levelManager = new LevelManager();
 		patternPlayer = new PatternPlayer();
@@ -116,6 +118,7 @@ class Game extends Process {
 				allowInput = true;
 				recorder.startRecording(levelManager.numberOfNotesForLevel);
 			} else {
+				score.scorePattern(levelManager.currentPattern, recorder.recordedPattern);
 				levelManager.nextLevel();
 				trace(" LEVEL: " + levelManager.currentLevel);
 				recorder.resetRecorder();
