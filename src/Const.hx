@@ -21,4 +21,7 @@ class Const {
 	public static var DP_UI = _inc++;
 
 	public static var BUTTON_DELAY_MS = 10; 
+
+	public static var LEVEL_RESET_POINT = 10;
+	public static var LEVEL_DELAY_S = 2;
 }

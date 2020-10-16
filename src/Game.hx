@@ -1,3 +1,4 @@
+import en.LevelManager;
 import en.Recorder;
 import en.PatternPlayer;
 import en.Enums.KeyToBind;
@@ -21,9 +22,9 @@ class Game extends Process {
 
 	public var allowInput : Bool;
 
+	private var levelManager : LevelManager;
 	private var patternPlayer : PatternPlayer;
 	private var recorder: Recorder;
-	private var currentLevel : Int = 0;
 
 	public function new() {
 		super(Main.ME);
@@ -49,8 +50,9 @@ class Game extends Process {
 		new Note(16,24, KeyToBind.S);
 		new Note(20,24, KeyToBind.D);
 
+		levelManager = new LevelManager();
 		patternPlayer = new PatternPlayer();
-		recorder = null;
+		recorder = new Recorder();
 
 		Process.resizeAll();
 		trace(Lang.t._("Game is ready."));
@@ -107,21 +109,22 @@ class Game extends Process {
 
 		for(e in Entity.ALL) if( !e.destroyed ) e.update();
 
-		if (recorder == null) {
-			patternPlayer.playPattern(Patterns.GeneratePattern(1 + currentLevel % 10, 1 + M.round(currentLevel/10)));		
-			recorder = new Recorder();
-		}
-		if (recorder != null && recorder.recordedPattern.length == 0 && !patternPlayer.isPlaying) {
-			recorder.startRecording(1 + currentLevel % 10);
-			this.allowInput = true;
-		}
-		if (recorder != null && !recorder.isRecording && !patternPlayer.isPlaying) {
-			currentLevel++;
-			trace(currentLevel);
-			trace(1 + currentLevel % 10);
-			trace(1 + M.round(currentLevel/10));
-			recorder = null;
-			this.allowInput = false;
+		if (!patternPlayer.isPlaying && !recorder.isRecording && !delayer.hasId("waitingToPlay")) {
+			if (levelManager.currentLevel != -1 && recorder.recordedPattern.length == 0) {
+				allowInput = true;
+				recorder.startRecording(levelManager.numberOfNotesForLevel);
+			} else {
+				levelManager.nextLevel();
+				trace(" LEVEL: " + levelManager.currentLevel);
+				recorder.resetRecorder();
+				allowInput = false;
+				for (note in Note.ALL) {
+					note.setButtonUp();
+				}
+				delayer.addS("waitingToPlay", () -> {
+					patternPlayer.playPattern(levelManager.currentPattern);
+				}, Const.LEVEL_DELAY_S);	
+			}
 		}
 
 		if( !ui.Console.ME.isActive() && !ui.Modal.hasAny() ) {

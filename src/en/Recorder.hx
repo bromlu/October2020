@@ -14,9 +14,7 @@ class Recorder extends Process {
 
     public function new() {
         super();
-        _isRecording = false;
-        recordedPattern = [];
-        currentPatternIndex = -1;
+        resetRecorder();
     }
 
     public function finishRecording() {
@@ -25,8 +23,14 @@ class Recorder extends Process {
     }
 
     public function startRecording(notesToRecord: Int) {
-        this.notesToRecord = notesToRecord;
+        this.notesToRecord = notesToRecord;  
         _isRecording = true;
+    }
+
+    public function resetRecorder() {
+        _isRecording = false;
+        recordedPattern = [];
+        currentPatternIndex = -1;
     }
 
     override function update() {
