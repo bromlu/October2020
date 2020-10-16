@@ -1,5 +1,7 @@
 package en;
 
+import hxd.Rand;
+
 class Patterns {
     private static var noteLengths: Array<Float> = [
         1,
@@ -9,12 +11,24 @@ class Patterns {
 
     public static function GeneratePattern(numberOfNotes: Int, speedModifier: Float = 1): Array<Pattern> {
         var patterns = [];
+        var rand = Rand.create();
 
-        for (i in 0...numberOfNotes) {
-            var noteIndex = M.randRange(0, Note.ALL.length - 1);
+        var i = 0;
+        var availableNoteIndexs: Array<Int> = [while (i < Note.ALL.length) i++];
+        rand.shuffle(availableNoteIndexs);
+        var noteIndex: Int = -1;
+        for (j in 0...numberOfNotes) {
+            var lastNoteIndex = noteIndex;
+            noteIndex = availableNoteIndexs.pop();
+
+            if(lastNoteIndex != -1) {
+                availableNoteIndexs.push(lastNoteIndex);
+                rand.shuffle(availableNoteIndexs);
+            }
+
             var noteLengthIndex = M.randRange(0, noteLengths.length - 1);
 
-            var pattern = new Pattern(Note.ALL[noteIndex], noteLengths[noteLengthIndex] / speedModifier);
+            var pattern = new Pattern([Note.ALL[noteIndex]], noteLengths[noteLengthIndex] / speedModifier);
             patterns.push(pattern);
         }
 

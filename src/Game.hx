@@ -1,3 +1,5 @@
+import en.Recorder;
+import en.PatternPlayer;
 import en.Enums.KeyToBind;
 import hxd.Timer;
 import en.Pattern;
@@ -18,6 +20,10 @@ class Game extends Process {
 	public var hud : ui.Hud;
 
 	public var allowInput : Bool;
+
+	private var patternPlayer : PatternPlayer;
+	private var recorder: Recorder;
+	private var currentLevel : Int = 0;
 
 	public function new() {
 		super(Main.ME);
@@ -42,6 +48,9 @@ class Game extends Process {
 		new Note(12,24, KeyToBind.A);
 		new Note(16,24, KeyToBind.S);
 		new Note(20,24, KeyToBind.D);
+
+		patternPlayer = new PatternPlayer();
+		recorder = null;
 
 		Process.resizeAll();
 		trace(Lang.t._("Game is ready."));
@@ -93,36 +102,26 @@ class Game extends Process {
 		for(e in Entity.ALL) if( !e.destroyed ) e.fixedUpdate();
 	}
 
-	var isPatternPlaying = false;
-	var currentLevel = 1;
-	var currentNote = 0;
-	var currentNotePlayStart = 0.0;
-	var currentPattern: Array<Pattern>;
-
 	override function update() {
 		super.update();
 
 		for(e in Entity.ALL) if( !e.destroyed ) e.update();
 
-		if (isPatternPlaying == true) {
-			if (framesToSec(ftime) - currentNotePlayStart >= currentPattern[currentNote].noteLength) {
-				currentPattern[currentNote].note.setButtonUp();
-				currentNote++;
-				if (currentNote >= currentPattern.length) {
-					isPatternPlaying = false;
-					currentLevel++;
-					currentNote = 0;
-				}
-			} else {
-				currentPattern[currentNote].note.setButtonDown();
-			}			
-		} else {
-			currentPattern = Patterns.GeneratePattern(1 + currentLevel % 10, 1 + M.round(currentLevel/10));
+		if (recorder == null) {
+			patternPlayer.playPattern(Patterns.GeneratePattern(1 + currentLevel % 10, 1 + M.round(currentLevel/10)));		
+			recorder = new Recorder();
+		}
+		if (recorder != null && recorder.recordedPattern.length == 0 && !patternPlayer.isPlaying) {
+			recorder.startRecording(1 + currentLevel % 10);
+			this.allowInput = true;
+		}
+		if (recorder != null && !recorder.isRecording && !patternPlayer.isPlaying) {
+			currentLevel++;
 			trace(currentLevel);
 			trace(1 + currentLevel % 10);
 			trace(1 + M.round(currentLevel/10));
-			currentNotePlayStart = framesToSec(ftime);
-			isPatternPlaying = true;
+			recorder = null;
+			this.allowInput = false;
 		}
 
 		if( !ui.Console.ME.isActive() && !ui.Modal.hasAny() ) {

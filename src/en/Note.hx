@@ -3,10 +3,11 @@ package en;
 class Note extends Entity {
 	public static var ALL : Array<Note> = [];
 	public var isUp : Bool;
+	public var isDown(get,never) : Bool; inline function get_isDown() return !isUp;
+	public var keyToBind: KeyToBind;
 
 	var ca : dn.heaps.Controller.ControllerAccess;
 	var keyIndex: Int;
-	var keyToBind: KeyToBind;
 
 	public function new(x,y, keyToBind: KeyToBind) {
 		super(x,y);
