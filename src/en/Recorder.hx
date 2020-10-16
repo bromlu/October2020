@@ -10,6 +10,7 @@ class Recorder extends Process {
     private var timer: Float;
     private var currentPatternIndex: Int;
     private var notesToRecord: Int;
+    private var noButtonsPressedLastFrame: Bool;
 
     public function new() {
         super();
@@ -34,18 +35,20 @@ class Recorder extends Process {
         if (!isRecording) return;
 
         var snapshot: Array<Note> = takeSnapshot();
-        if (currentPatternIndex == -1 || !compareSnapshots(recordedPattern[currentPatternIndex].notes, snapshot)) {
-            if (currentPatternIndex != -1) {
+        if (currentPatternIndex == -1 || !compareSnapshots(noButtonsPressedLastFrame ? [] : recordedPattern[currentPatternIndex].notes, snapshot)) {
+            if (currentPatternIndex != -1 && recordedPattern[currentPatternIndex].noteLength == -1) {
                 recordedPattern[currentPatternIndex].noteLength = framesToSec(ftime) - timer;
             }
 
             if (recordedPattern.length == notesToRecord) {
                 finishRecording();
-            } else {
-                recordedPattern.push(new Pattern(snapshot, 0));
+            } else if (snapshot.length > 0) {
+                recordedPattern.push(new Pattern(snapshot, -1));
                 timer = framesToSec(ftime);
                 currentPatternIndex++;
             }
+
+            noButtonsPressedLastFrame = snapshot.length == 0;
         }
     }
 
