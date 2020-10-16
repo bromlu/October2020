@@ -34,4 +34,14 @@ class Patterns {
 
         return patterns;
     }
+
+    public static function compareSnapshots(snapshot1: Array<Note>, snapshot2: Array<Note>) {
+        if (snapshot1.length != snapshot2.length) {
+            return false;
+        }
+        for (i in 0...snapshot1.length) {
+            if(snapshot1[i].keyToBind != snapshot2[i].keyToBind) return false;
+        }
+        return true;
+    }
 }

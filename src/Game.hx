@@ -1,3 +1,4 @@
+import en.Score;
 import en.LevelManager;
 import en.Recorder;
 import en.PatternPlayer;
@@ -21,10 +22,10 @@ class Game extends Process {
 	public var hud : ui.Hud;
 
 	public var allowInput : Bool;
+	public var recorder: Recorder;
+	public var levelManager : LevelManager;
 
-	private var levelManager : LevelManager;
 	private var patternPlayer : PatternPlayer;
-	private var recorder: Recorder;
 
 	public function new() {
 		super(Main.ME);
@@ -49,6 +50,7 @@ class Game extends Process {
 		new Note(12,24, KeyToBind.A);
 		new Note(16,24, KeyToBind.S);
 		new Note(20,24, KeyToBind.D);
+		new Score(1,1);
 
 		levelManager = new LevelManager();
 		patternPlayer = new PatternPlayer();

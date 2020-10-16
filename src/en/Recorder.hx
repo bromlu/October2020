@@ -5,10 +5,10 @@ import dn.Process;
 class Recorder extends Process {
     public var recordedPattern: Array<Pattern>;
     public var isRecording(get, never): Bool; inline function get_isRecording() return _isRecording;
-
+    public var currentPatternIndex: Int;
+    
     private var _isRecording: Bool;
     private var timer: Float;
-    private var currentPatternIndex: Int;
     private var notesToRecord: Int;
     private var noButtonsPressedLastFrame: Bool;
 
@@ -18,7 +18,6 @@ class Recorder extends Process {
     }
 
     public function finishRecording() {
-        trace("DONE");
         _isRecording = false;
     }
 
@@ -39,7 +38,7 @@ class Recorder extends Process {
         if (!isRecording) return;
 
         var snapshot: Array<Note> = takeSnapshot();
-        if (currentPatternIndex == -1 || !compareSnapshots(noButtonsPressedLastFrame ? [] : recordedPattern[currentPatternIndex].notes, snapshot)) {
+        if (currentPatternIndex == -1 || !Patterns.compareSnapshots(noButtonsPressedLastFrame ? [] : recordedPattern[currentPatternIndex].notes, snapshot)) {
             if (currentPatternIndex != -1 && recordedPattern[currentPatternIndex].noteLength == -1) {
                 recordedPattern[currentPatternIndex].noteLength = framesToSec(ftime) - timer;
             }
@@ -63,15 +62,5 @@ class Recorder extends Process {
 
     private function takeSnapshot() {
         return Note.ALL.filter(note -> note.isDown);
-    }
-
-    private function compareSnapshots(snapshot1: Array<Note>, snapshot2: Array<Note>) {
-        if (snapshot1.length != snapshot2.length) {
-            return false;
-        }
-        for (i in 0...snapshot1.length) {
-            if(snapshot1[i].keyToBind != snapshot2[i].keyToBind) return false;
-        }
-        return true;
     }
 }
