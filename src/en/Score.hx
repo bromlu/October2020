@@ -77,6 +77,6 @@ class Score extends Entity {
         }
 
         scoreValue.text = Std.string(currentScore);
-        fx.markerText(cx + 13,cy - 1, howWellYouDidText, color, 2);
+        fx.markerText(cx + 13,cy - 1, howWellYouDidText, color, 3);
     }
 }
