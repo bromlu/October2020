@@ -36,4 +36,6 @@ class Const {
 	public static var POOR_SCORE_THRESHOLD_S = 2;
 	public static var BAD_SCORE_THRESHOLD_S = 3;
 	public static var SCORE_TO_GET_A_LIFE = 10000;
+
+	public static var HUD_SCALE = 4;
 }
