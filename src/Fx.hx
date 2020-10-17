@@ -1,3 +1,4 @@
+import h3d.Vector;
 import h2d.Sprite;
 import dn.heaps.HParticle;
 import dn.Tweenie;
@@ -110,12 +111,14 @@ class Fx extends dn.Process {
 		#end
 	}
 
-	public function markerText(cx:Int, cy:Int, txt:String, ?t=1.0) {
-		#if debug
-		var tf = new h2d.Text(Assets.fontTiny, topNormalSb);
+	public function markerText(cx:Int, cy:Int, txt:String, color: Vector, ?t=1.0) {
+		var tf = new h2d.Text(Assets.fontPixel, topNormalSb);
 		tf.text = txt;
+		tf.rotate(M.toRad(M.randRange(-45, 45)));
+		tf.color = color;
+		tf.setScale(2);
 
-		var p = allocTopAdd(getTile("fxCircle"), (cx+0.5)*Const.GRID, (cy+0.5)*Const.GRID);
+		var p = allocTopAdd(getTile("Nothing"), (cx+0.5)*Const.GRID, (cy+0.5)*Const.GRID);
 		p.colorize(0x0080FF);
 		p.alpha = 0.6;
 		p.lifeS = 0.3;
@@ -123,7 +126,6 @@ class Fx extends dn.Process {
 		p.onKill = tf.remove;
 
 		tf.setPosition(p.x-tf.textWidth*0.5, p.y-tf.textHeight*0.5);
-		#end
 	}
 
 	public function flashBangS(c:UInt, a:Float, ?t=0.1) {
