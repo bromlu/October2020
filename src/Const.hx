@@ -20,7 +20,7 @@ class Const {
 	public static var DP_TOP = _inc++;
 	public static var DP_UI = _inc++;
 
-	public static var BUTTON_DELAY_MS = 20; 
+	public static var BUTTON_DELAY_MS = 50; 
 
 	public static var LEVEL_RESET_POINT = 10;
 	public static var LEVEL_DELAY_S = 2;
@@ -29,8 +29,8 @@ class Const {
 	public static var GOOD_SCORE = 500;
 	public static var OK_SCORE = 250;
 	public static var POOR_SCORE = 100;
-	public static var BAD_SCORE = 10;
-	public static var PERFECT_SCORE_THRESHOLD_S = 0.25;
+	public static var BAD_SCORE_MULTIPLIER = 10;
+	public static var PERFECT_SCORE_THRESHOLD_S = 0.10;
 	public static var GOOD_SCORE_THRESHOLD_S = 0.5;
 	public static var OK_SCORE_THRESHOLD_S = 1;
 	public static var POOR_SCORE_THRESHOLD_S = 2;
