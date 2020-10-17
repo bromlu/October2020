@@ -1,5 +1,7 @@
 package en;
 
+import hxd.res.Sound;
+
 class Note extends Entity {
 	public static var ALL : Array<Note> = [];
 	public var isUp : Bool;
@@ -9,13 +11,15 @@ class Note extends Entity {
 	var ca : dn.heaps.Controller.ControllerAccess;
 	var keyIndex: Int;
 	var timePressed: Float;
+	var sound: Sound;
 
-	public function new(x,y, keyToBind: KeyToBind) {
+	public function new(x,y, keyToBind: KeyToBind, sound: Sound) {
 		super(x,y);
 		ALL.push(this);
 
 		ca = Main.ME.controller.createAccess("button");
 		this.keyToBind = keyToBind;
+		this.sound = sound;
 
 		switch (keyToBind) {
 			case Q: this.keyIndex = hxd.Key.Q;
@@ -48,13 +52,17 @@ class Note extends Entity {
 	public function setButtonUp() {
 		if (isUp) return;
 
+		sound.stop();
+
 		isUp = true;
 		spr.set("Button" + keyToBind + "Up");
 		spr.uncolorize();
 	}
 	
-	public function setButtonDown() {
+	public function setButtonDown() {	
 		if (!isUp) return;
+		
+		sound.play(true);
 
 		timePressed = game.framesToMs(game.ftime);
 		isUp = false;

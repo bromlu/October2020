@@ -1,3 +1,4 @@
+import hxd.snd.Manager;
 import en.Score;
 import en.LevelManager;
 import en.Recorder;
@@ -20,6 +21,8 @@ class Game extends Process {
 	public var scroller : h2d.Layers;
 	public var level : Level;
 	public var hud : ui.Hud;
+
+	public var soundManager: Manager;
 
 	public var allowInput : Bool;
 	public var recorder: Recorder;
@@ -45,14 +48,15 @@ class Game extends Process {
 		fx = new Fx();
 		hud = new ui.Hud();
 
-		new Note(12,20, KeyToBind.Q);
-		new Note(16,20, KeyToBind.W);
-		new Note(20,20, KeyToBind.E);
-		new Note(12,24, KeyToBind.A);
-		new Note(16,24, KeyToBind.S);
-		new Note(20,24, KeyToBind.D);
+		new Note(12,20, KeyToBind.Q, Assets.C4);
+		new Note(16,20, KeyToBind.W, Assets.DS4);
+		new Note(20,20, KeyToBind.E, Assets.E4);
+		new Note(12,24, KeyToBind.A, Assets.FS4);
+		new Note(16,24, KeyToBind.S, Assets.G4);
+		new Note(20,24, KeyToBind.D, Assets.AS4);
 		
 		score = new Score(1,1);
+		soundManager = Manager.get();
 
 		levelManager = new LevelManager();
 		patternPlayer = new PatternPlayer();
