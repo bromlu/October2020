@@ -123,7 +123,6 @@ class Game extends Process {
 			} else {
 				score.scorePattern(levelManager.currentPattern, recorder.recordedPattern);
 				levelManager.nextLevel();
-				trace(" LEVEL: " + levelManager.currentLevel);
 				recorder.resetRecorder();
 				allowInput = false;
 				for (note in Note.ALL) {
