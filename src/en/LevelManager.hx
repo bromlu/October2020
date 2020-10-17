@@ -1,12 +1,29 @@
 package en;
 
-class LevelManager {
+import h2d.Text;
+
+class LevelManager extends Entity {
     public var currentLevel: Int;
     public var numberOfNotesForLevel(get,never): Int; inline function get_numberOfNotesForLevel() return 1 + (currentLevel % Const.LEVEL_RESET_POINT);
     public var speedModifierForLevel(get,never): Int; inline function get_speedModifierForLevel() return (1 + Std.int(M.floor(currentLevel / Const.LEVEL_RESET_POINT) / 2));
     public var currentPattern: Array<Pattern>;
+    
+    private var levelValue: Text;
 
-    public function new() {
+    public function new(x, y) {
+        super(x, y);
+
+        var levelDescription = new h2d.Text(Assets.fontPixel);
+        levelValue = new h2d.Text(Assets.fontPixel);
+        levelDescription.text = "Level: ";
+        levelDescription.scale(Const.HUD_SCALE);
+        levelValue.text = Std.string(0);
+        levelValue.scale(Const.HUD_SCALE);
+        levelValue.x = Const.HUD_SCALE * 32 + 4;
+        spr.addChild(levelDescription);
+        spr.addChild(levelValue);
+        spr.set("Nothing");
+
         currentLevel = -2;
         nextLevel();
     }
@@ -14,5 +31,9 @@ class LevelManager {
     public function nextLevel() {
         currentLevel++;
         currentPattern = Patterns.GeneratePattern(numberOfNotesForLevel, speedModifierForLevel);
+
+        if (currentLevel >= 0) {
+            levelValue.text = Std.string(currentLevel + 1);
+        }
     }
 }

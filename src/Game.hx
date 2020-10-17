@@ -55,10 +55,9 @@ class Game extends Process {
 		new Note(16,24, KeyToBind.S, Assets.G4);
 		new Note(20,24, KeyToBind.D, Assets.AS4);
 		
-		score = new Score(1,1);
+		score = new Score(1,3);
 		soundManager = Manager.get();
-
-		levelManager = new LevelManager();
+		levelManager = new LevelManager(1,0);
 		patternPlayer = new PatternPlayer();
 		recorder = new Recorder();
 
