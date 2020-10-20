@@ -10,12 +10,14 @@ class Assets {
 	public static var fontLarge : h2d.Font;
 	public static var tiles : SpriteLib;
 
-	public static var C4: Sound;
-	public static var DS4: Sound;
-	public static var E4: Sound;
-	public static var FS4: Sound;
-	public static var G4: Sound;
-	public static var AS4: Sound;
+	public static var QHarmonics: Sound;
+	public static var WHarmonics: Sound;
+	public static var EHarmonics: Sound;
+	public static var AHarmonics: Sound;
+	public static var SHarmonics: Sound;
+	public static var DHarmonics: Sound;
+
+	public static var Baseline1: Sound;
 
 	static var initDone = false;
 	public static function init() {
@@ -30,11 +32,13 @@ class Assets {
 		fontLarge = hxd.Res.fonts.barlow_condensed_medium_regular_32.toFont();
 		tiles = dn.heaps.assets.Atlas.load("atlas/tiles.atlas");
 
-		C4 = hxd.Res.loader.load("C4.mp3").toSound();
-		DS4 = hxd.Res.loader.load("DS4.mp3").toSound();
-		E4 = hxd.Res.loader.load("E4.mp3").toSound();
-		FS4 = hxd.Res.loader.load("FS4.mp3").toSound();
-		G4 = hxd.Res.loader.load("G4.mp3").toSound();
-		AS4 = hxd.Res.loader.load("AS4.mp3").toSound();
+		QHarmonics = hxd.Res.loader.load("audio/QHarmonics.wav").toSound();
+		WHarmonics = hxd.Res.loader.load("audio/WHarmonics.wav").toSound();
+		EHarmonics = hxd.Res.loader.load("audio/EHarmonics.wav").toSound();
+		AHarmonics = hxd.Res.loader.load("audio/AHarmonics.wav").toSound();
+		SHarmonics = hxd.Res.loader.load("audio/SHarmonics.wav").toSound();
+		DHarmonics = hxd.Res.loader.load("audio/DHarmonics.wav").toSound();
+
+		Baseline1 = hxd.Res.loader.load("audio/Baseline1.wav").toSound();
 	}
 }

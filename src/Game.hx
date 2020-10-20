@@ -22,8 +22,6 @@ class Game extends Process {
 	public var level : Level;
 	public var hud : ui.Hud;
 
-	public var soundManager: Manager;
-
 	public var allowInput : Bool;
 	public var recorder: Recorder;
 	public var levelManager : LevelManager;
@@ -48,18 +46,19 @@ class Game extends Process {
 		fx = new Fx();
 		hud = new ui.Hud();
 
-		new Note(12,20, KeyToBind.Q, Assets.C4);
-		new Note(16,20, KeyToBind.W, Assets.DS4);
-		new Note(20,20, KeyToBind.E, Assets.E4);
-		new Note(12,24, KeyToBind.A, Assets.FS4);
-		new Note(16,24, KeyToBind.S, Assets.G4);
-		new Note(20,24, KeyToBind.D, Assets.AS4);
+		new Note(12,20, KeyToBind.Q, Assets.QHarmonics);
+		new Note(16,20, KeyToBind.W, Assets.WHarmonics);
+		new Note(20,20, KeyToBind.E, Assets.EHarmonics);
+		new Note(12,24, KeyToBind.A, Assets.AHarmonics);
+		new Note(16,24, KeyToBind.S, Assets.SHarmonics);
+		new Note(20,24, KeyToBind.D, Assets.DHarmonics);
 		
 		score = new Score(1,3);
-		soundManager = Manager.get();
 		levelManager = new LevelManager(1,0);
 		patternPlayer = new PatternPlayer();
 		recorder = new Recorder();
+
+		Assets.Baseline1.play(true);
 
 		Process.resizeAll();
 		trace(Lang.t._("Game is ready."));
