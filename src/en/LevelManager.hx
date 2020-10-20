@@ -9,6 +9,7 @@ class LevelManager extends Entity {
     public var currentPattern: Array<Pattern>;
     
     private var levelValue: Text;
+    private var lastSongSwitch: Float = -1;
 
     public function new(x, y) {
         super(x, y);
@@ -34,6 +35,20 @@ class LevelManager extends Entity {
 
         if (currentLevel >= 0) {
             levelValue.text = Std.string(currentLevel + 1);
+            
+            if (currentLevel % Const.LEVEL_RESET_POINT == 0) {
+
+                if (Assets.Baseline1.lastPlay == lastSongSwitch) {
+                    Assets.Baseline1.stop();
+                    Assets.Baseline2.play(true);
+                    lastSongSwitch = Assets.Baseline2.lastPlay;
+                } else {
+                    Assets.Baseline2.stop();
+                    Assets.Baseline1.play(true);
+                    lastSongSwitch = Assets.Baseline1.lastPlay;
+                }
+            }
         }
+
     }
 }

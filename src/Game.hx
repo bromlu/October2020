@@ -58,8 +58,6 @@ class Game extends Process {
 		patternPlayer = new PatternPlayer();
 		recorder = new Recorder();
 
-		Assets.Baseline1.play(true);
-
 		Process.resizeAll();
 		trace(Lang.t._("Game is ready."));
 	}

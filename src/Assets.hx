@@ -18,6 +18,7 @@ class Assets {
 	public static var DHarmonics: Sound;
 
 	public static var Baseline1: Sound;
+	public static var Baseline2: Sound;
 
 	static var initDone = false;
 	public static function init() {
@@ -40,5 +41,6 @@ class Assets {
 		DHarmonics = hxd.Res.loader.load("audio/DHarmonics.wav").toSound();
 
 		Baseline1 = hxd.Res.loader.load("audio/Baseline1.wav").toSound();
+		Baseline2 = hxd.Res.loader.load("audio/Baseline2.wav").toSound();
 	}
 }
