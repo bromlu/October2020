@@ -53,8 +53,8 @@ class Game extends Process {
 		new Note(16,24, KeyToBind.S, Assets.SHarmonics);
 		new Note(20,24, KeyToBind.D, Assets.DHarmonics);
 		
-		score = new Score(1,3);
 		levelManager = new LevelManager(1,0);
+		score = new Score(1,6);
 		patternPlayer = new PatternPlayer();
 		recorder = new Recorder();
 

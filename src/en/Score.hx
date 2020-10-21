@@ -32,6 +32,7 @@ class Score extends Entity {
                 game.recorder.recordedPattern[game.recorder.currentPatternIndex].notes, 
                 game.levelManager.currentPattern[game.recorder.currentPatternIndex].notes)) {
                     game.recorder.finishRecording();
+                    game.levelManager.loseALife();
                     return;
                 }
         }
