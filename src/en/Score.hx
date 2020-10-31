@@ -80,4 +80,9 @@ class Score extends Entity {
         scoreValue.text = Std.string(currentScore);
         fx.markerText(cx + 13,cy - 1, howWellYouDidText, color, 3);
     }
+
+    public function reset() {
+        currentScore = 0;
+        scoreValue.text = Std.string(currentScore);
+    }
 }

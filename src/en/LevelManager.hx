@@ -78,4 +78,12 @@ class LevelManager extends Entity {
         currentNumberOfLives--;
         livesValue.text = Std.string(currentNumberOfLives);
     }
+
+    public function reset() {
+        currentNumberOfLives = 3;
+        currentLevel = -2;
+        Assets.Baseline1.stop();
+        Assets.Baseline2.stop();
+        nextLevel();
+    }
 }

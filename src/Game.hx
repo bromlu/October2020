@@ -113,7 +113,7 @@ class Game extends Process {
 
 		for(e in Entity.ALL) if( !e.destroyed ) e.update();
 
-		if (!patternPlayer.isPlaying && !recorder.isRecording && !delayer.hasId("waitingToPlay")) {
+		if (levelManager.currentNumberOfLives > 0 && !patternPlayer.isPlaying && !recorder.isRecording && !delayer.hasId("waitingToPlay")) {
 			if (levelManager.currentLevel != -1 && recorder.recordedPattern.length == 0) {
 				allowInput = true;
 				recorder.startRecording(levelManager.numberOfNotesForLevel);
@@ -128,6 +128,15 @@ class Game extends Process {
 				delayer.addS("waitingToPlay", () -> {
 					patternPlayer.playPattern(levelManager.currentPattern);
 				}, Const.LEVEL_DELAY_S);	
+			}
+		}
+
+		if (levelManager.currentNumberOfLives <= 0) {
+			if(ca.isKeyboardPressed(Key.R)) {
+				levelManager.reset();
+				score.reset();
+				patternPlayer.stopPlayingPattern();
+				recorder.resetRecorder();
 			}
 		}
 

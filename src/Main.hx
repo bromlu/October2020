@@ -6,6 +6,8 @@ class Main extends dn.Process {
 	public var controller : dn.heaps.Controller;
 	public var ca : dn.heaps.Controller.ControllerAccess;
 
+	private var state: Int; // 0 menu, 1 game, 2 score. Probably should be an enum but whatev.
+
 	public function new(s:h2d.Scene) {
 		super();
 		ME = this;
@@ -54,7 +56,7 @@ class Main extends dn.Process {
 		controller.bind(X, Key.SPACE, Key.F, Key.E);
 		controller.bind(A, Key.UP, Key.Z, Key.W);
 		controller.bind(B, Key.ENTER, Key.NUMPAD_ENTER);
-		controller.bind(SELECT, Key.R);
+		controller.bind(SELECT, Key.P);
 		controller.bind(START, Key.N);
 
 		// Start
@@ -63,6 +65,28 @@ class Main extends dn.Process {
 	}
 
 	public function startGame() {
+		if( Game.ME!=null ) {
+			Game.ME.destroy();
+			delayer.addF(function() {
+				new Game();
+			}, 1);
+		}
+		else
+			new Game();
+	}
+
+	public function showMenu() {
+		if( Game.ME!=null ) {
+			Game.ME.destroy();
+			delayer.addF(function() {
+				new Game();
+			}, 1);
+		}
+		else
+			new Game();
+	}
+
+	public function showScore() {
 		if( Game.ME!=null ) {
 			Game.ME.destroy();
 			delayer.addF(function() {
