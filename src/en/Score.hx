@@ -4,7 +4,7 @@ import h3d.Vector;
 import h2d.Text;
 
 class Score extends Entity {
-    var currentScore: Int = 0;
+    public var currentScore: Int = 0;
     var scoreValue: Text;
 
     public function new(x, y) {

@@ -1,3 +1,4 @@
+import en.GameOver;
 import hxd.snd.Manager;
 import en.Score;
 import en.LevelManager;
@@ -25,6 +26,7 @@ class Game extends Process {
 	public var allowInput : Bool;
 	public var recorder: Recorder;
 	public var levelManager : LevelManager;
+	public var gameOver: GameOver;
 
 	private var patternPlayer : PatternPlayer;
 	private var score : Score;
@@ -57,6 +59,7 @@ class Game extends Process {
 		score = new Score(1,6);
 		patternPlayer = new PatternPlayer();
 		recorder = new Recorder();
+		gameOver = null;
 
 		Process.resizeAll();
 		trace(Lang.t._("Game is ready."));
@@ -131,12 +134,17 @@ class Game extends Process {
 			}
 		}
 
-		if (levelManager.currentNumberOfLives <= 0) {
+		if (levelManager.currentNumberOfLives <= 0 ) {
+			if (gameOver == null) {
+				gameOver = new GameOver(1,10, score.currentScore);
+			}
 			if(ca.isKeyboardPressed(Key.R)) {
 				levelManager.reset();
 				score.reset();
 				patternPlayer.stopPlayingPattern();
 				recorder.resetRecorder();
+				gameOver.destroy();
+				gameOver = null;
 			}
 		}
 
