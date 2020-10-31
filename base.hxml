@@ -4,3 +4,4 @@
 -lib deepnightLibs
 -main Boot
 -dce full
+--no-traces

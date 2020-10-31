@@ -48,15 +48,15 @@ class Game extends Process {
 		fx = new Fx();
 		hud = new ui.Hud();
 
-		new Note(12,20, KeyToBind.Q, Assets.QHarmonics);
-		new Note(16,20, KeyToBind.W, Assets.WHarmonics);
-		new Note(20,20, KeyToBind.E, Assets.EHarmonics);
-		new Note(12,24, KeyToBind.A, Assets.AHarmonics);
-		new Note(16,24, KeyToBind.S, Assets.SHarmonics);
-		new Note(20,24, KeyToBind.D, Assets.DHarmonics);
+		new Note(4,20, KeyToBind.Q, Assets.QHarmonics);
+		new Note(8,20, KeyToBind.W, Assets.WHarmonics);
+		new Note(12,20, KeyToBind.E, Assets.EHarmonics);
+		new Note(4,24, KeyToBind.A, Assets.AHarmonics);
+		new Note(8,24, KeyToBind.S, Assets.SHarmonics);
+		new Note(12,24, KeyToBind.D, Assets.DHarmonics);
 		
-		levelManager = new LevelManager(1,0);
-		score = new Score(1,6);
+		levelManager = new LevelManager(-10,0);
+		score = new Score(-10,6);
 		patternPlayer = new PatternPlayer();
 		recorder = new Recorder();
 		gameOver = null;
@@ -136,7 +136,7 @@ class Game extends Process {
 
 		if (levelManager.currentNumberOfLives <= 0 ) {
 			if (gameOver == null) {
-				gameOver = new GameOver(1,10, score.currentScore);
+				gameOver = new GameOver(-10,10, score.currentScore);
 			}
 			if(ca.isKeyboardPressed(Key.R)) {
 				levelManager.reset();
